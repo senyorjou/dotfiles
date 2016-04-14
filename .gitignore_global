@@ -1,0 +1,14 @@
+*~
+.DS_Store
+grunt.local.json
+.coverage
+venv
+.env-*
+.venv*
+_docs
+.idea
+_test.*
+_tools
+.coveragerc
+.ipynb_*
+__pycache__
