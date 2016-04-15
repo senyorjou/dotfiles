@@ -119,7 +119,12 @@ au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " Trim whitespace on save
-autocmd FileType python,javascript autocmd BufWritePre <buffer> StripWhitespace
+autocmd FileType python,javascript,haskell autocmd BufWritePre <buffer> StripWhitespace
+
+autocmd Filetype markdown setlocal wrap
+autocmd Filetype markdown setlocal linebreak
+autocmd Filetype markdown setlocal nolist
+autocmd Filetype markdown setlocal columns=80
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
