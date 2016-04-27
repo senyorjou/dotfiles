@@ -136,6 +136,8 @@ alias nb="ipython notebook"
 # Z
 source `brew --prefix`/etc/profile.d/z.sh
 
+# tell brew do not call home
+export HOMEBREW_NO_ANALYTICS=1
 
 # The next line updates PATH for the Google Cloud SDK.
 #source '/Users/sentyorjou/google-cloud-sdk/path.zsh.inc'
