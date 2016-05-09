@@ -50,6 +50,8 @@ set smartcase
 " Visual hint for brackets
 set showmatch
 set matchtime=3
+" hide highlighted items
+nnoremap <C-h> :nohlsearch<CR>
 
 " Center current line. Use 0 to restore normal
 set so=999
