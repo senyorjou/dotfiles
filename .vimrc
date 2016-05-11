@@ -139,6 +139,9 @@ autocmd InsertLeave * set nocul
 nnoremap <C-j> :YcmCompleter GoTo<CR>
 nnoremap <C-k> :YcmCompleter GetDoc<CR>
 
+" TagBar
+nmap <leader>t :TagbarToggle<CR>
+"
 " TagList Plugin Configuration
 " let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 " let Tlist_GainFocus_On_ToggleOpen = 1
