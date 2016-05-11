@@ -24,6 +24,7 @@ Plugin 'wakatime/vim-wakatime'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mattn/emmet-vim'
 Plugin 'majutsushi/tagbar'
+"Plugin 'taglist.vim'
 
 filetype plugin indent on
 
@@ -133,3 +134,16 @@ let g:airline#extensions#tabline#enabled = 1
 
 autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
+
+" YouCompleteMe
+nnoremap <C-j> :YcmCompleter GoTo<CR>
+nnoremap <C-k> :YcmCompleter GetDoc<CR>
+
+" TagList Plugin Configuration
+" let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+" let Tlist_GainFocus_On_ToggleOpen = 1
+" let Tlist_Close_On_Select = 1
+" let Tlist_Use_Right_Window = 1
+" let Tlist_File_Fold_Auto_Close = 1
+" map <F7> :TlistToggle<CR>
+

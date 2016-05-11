@@ -12,3 +12,5 @@ _tools
 .coveragerc
 .ipynb_*
 __pycache__
+tags
+
