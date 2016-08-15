@@ -11,7 +11,7 @@ Plugin 'gmarik/vundle'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
@@ -24,6 +24,7 @@ Plugin 'wakatime/vim-wakatime'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mattn/emmet-vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-eunuch'
 "Plugin 'taglist.vim'
 
 filetype plugin indent on
@@ -47,6 +48,7 @@ set nobackup
 set hlsearch
 set ignorecase
 set smartcase
+set splitright
 
 " Visual hint for brackets
 set showmatch
@@ -79,11 +81,17 @@ colorscheme solarized
 
 "colorscheme blackboard
 
+" Quickly select the text that was just pasted.
+noremap gV `[v`]
+
+" Stay in visual mode when indenting
+vnoremap < <gv
+vnoremap > >gv
 
 " NERDTree
 nmap <leader>n :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore = ['tmp', '.git', '.pyc', 'venv']
+let NERDTreeIgnore = ['tmp', '.git', '.pyc', 'venv', 'tags']
 let NERDTreeQuitOnOpen=1
 
 
