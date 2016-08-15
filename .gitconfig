@@ -6,9 +6,6 @@
 	email = smyslov@gmail.com
 [rerere]
     enabled = true
-[alias]
-    st = status
-    co = checkout
 [color]
     ui = auto
 [color "branch"]
@@ -42,6 +39,8 @@
 ;[diff]
 	;external = /Users/senyorjou/.git_diff_cmd.sh
 [alias]
+    st = status
+    co = checkout
     b = branch -av
     aa = add --all
 	ap = add --patch
@@ -55,3 +54,5 @@
     lg = log --oneline --graph --decorate
 [push]
 	default = simple
+[commit]
+	template = /Users/senyorjou/.stCommitMsg
