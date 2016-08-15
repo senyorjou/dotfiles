@@ -105,7 +105,7 @@ alias log-mysql="tail -f /private/var/log/mysqld.log"
 alias run-redis="redis-server"
 
 # Postgres
-alias run-psql="postgres -D /usr/local/var/postgres"
+alias run-psql="postgres -D /usr/local/var/postgres -d 5"
 
 # Apache
 alias run-apache="sudo apachectl restart"
@@ -133,19 +133,26 @@ alias gojou="cd /Users/senyorjou/dev/golang/src/github.com/senyorjou"
 PIP_REQUIRE_VIRTUALENV=false;alias anaconda="PATH=\"//Users/senyorjou/anaconda/bin:$PATH\"; ipython"
 alias nb="ipython notebook"
 
+PIP_REQUIRE_VIRTUALENV=false;alias anaconda3="PATH=\"//Users/senyorjou/anaconda3/bin:$PATH\"; ipython3"
+alias jp="jupyter notebook"
+
 # Z
 source `brew --prefix`/etc/profile.d/z.sh
 
 # tell brew do not call home
 export HOMEBREW_NO_ANALYTICS=1
-
-# The next line updates PATH for the Google Cloud SDK.
-#source '/Users/sentyorjou/google-cloud-sdk/path.zsh.inc'
-# The next line enables shell command completion for gcloud.
-#source '/Users/sentyorjou/google-cloud-sdk/completion.zsh.inc'
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 find_port() {
     lsof -i :$1
 }
+
+# U know... locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/senyorjou/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/senyorjou/google-cloud-sdk/completion.zsh.inc'
