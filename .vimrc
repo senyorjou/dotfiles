@@ -12,7 +12,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
@@ -25,6 +26,9 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'mattn/emmet-vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-eunuch'
+Plugin 'Yggdroot/indentLine'
+"Plugin 'Yggdroot/hiPairs'
+
 "Plugin 'taglist.vim'
 
 filetype plugin indent on
@@ -75,11 +79,11 @@ set colorcolumn=80
 
 " Color Scheme
 syntax enable
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
+" set background=dark
+" let g:solarized_termcolors=256
+" colorscheme solarized
 
-"colorscheme blackboard
+colorscheme molokai
 
 " Quickly select the text that was just pasted.
 noremap gV `[v`]
@@ -146,6 +150,10 @@ autocmd InsertLeave * set nocul
 " YouCompleteMe
 nnoremap <C-j> :YcmCompleter GoTo<CR>
 nnoremap <C-k> :YcmCompleter GetDoc<CR>
+
+" Split
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
 
 " TagBar
 nmap <leader>t :TagbarToggle<CR>

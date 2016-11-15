@@ -1,5 +1,5 @@
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/senyorjou/.gitignore_global
 	editor = /usr/local/bin/vim
 [user]
 	name = Marc Jou
