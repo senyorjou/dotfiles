@@ -137,6 +137,7 @@ alias nb="ipython notebook"
 PIP_REQUIRE_VIRTUALENV=false;alias anaconda3="PATH=\"//Users/senyorjou/anaconda3/bin:$PATH\"; ipython3"
 alias jp="jupyter notebook"
 
+alias tmux="tmux -2"
 # Z
 source `brew --prefix`/etc/profile.d/z.sh
 

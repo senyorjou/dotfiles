@@ -8,24 +8,25 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 
 " My Plugins
+Plugin 'airblade/vim-gitgutter'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'diepm/vim-rest-console'
+Plugin 'dkprice/vim-easygrep'
+Plugin 'fatih/vim-go'
+Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'mattn/emmet-vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
-"Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
-Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'diepm/vim-rest-console'
-Plugin 'wakatime/vim-wakatime'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'mattn/emmet-vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-eunuch'
+Plugin 'wakatime/vim-wakatime'
 Plugin 'Yggdroot/indentLine'
 "Plugin 'Yggdroot/hiPairs'
 
@@ -45,6 +46,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set nowrap
+"set relativenumber
 set number
 set nowritebackup
 set noswapfile
@@ -70,7 +72,7 @@ nnoremap j gj
 nnoremap k gk
 
 " List buffers and cycle
-nnoremap <C-b> :bd<CR>
+nnoremap <Leader>b :bd<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
@@ -84,6 +86,9 @@ syntax enable
 " colorscheme solarized
 
 colorscheme molokai
+" Change some colors. Map reference --> https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
+hi Visual ctermbg=025
+hi CursorLine ctermbg=238
 
 " Quickly select the text that was just pasted.
 noremap gV `[v`]
@@ -165,4 +170,3 @@ nmap <leader>t :TagbarToggle<CR>
 " let Tlist_Use_Right_Window = 1
 " let Tlist_File_Fold_Auto_Close = 1
 " map <F7> :TlistToggle<CR>
-
