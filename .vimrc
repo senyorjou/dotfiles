@@ -12,6 +12,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'diepm/vim-rest-console'
 Plugin 'dkprice/vim-easygrep'
+Plugin 'hoelzro/elm-vim'
 Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
 Plugin 'ntpeters/vim-better-whitespace'
@@ -103,6 +104,9 @@ let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.git', '.pyc', 'venv', 'tags']
 let NERDTreeQuitOnOpen=1
 
+" Emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -116,6 +120,8 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
+
+let g:elm_syntastic_show_warnings = 1
 
 " go-vim
 let g:go_highlight_functions = 1
@@ -139,7 +145,7 @@ au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " Trim whitespace on save
-autocmd FileType python,javascript,haskell autocmd BufWritePre <buffer> StripWhitespace
+autocmd FileType python,javascript,haskell,elm  autocmd BufWritePre <buffer> StripWhitespace
 
 autocmd Filetype markdown setlocal wrap
 autocmd Filetype markdown setlocal linebreak
