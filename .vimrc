@@ -73,7 +73,7 @@ nnoremap j gj
 nnoremap k gk
 
 " List buffers and cycle
-nnoremap <Leader>b :bd<CR>
+nnoremap <C-b> :bd<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
@@ -121,6 +121,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
+" ELM
+let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
 
 " go-vim
@@ -145,7 +147,7 @@ au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " Trim whitespace on save
-autocmd FileType python,javascript,haskell,elm  autocmd BufWritePre <buffer> StripWhitespace
+autocmd FileType python,javascript,haskell,elm,css,html  autocmd BufWritePre <buffer> StripWhitespace
 
 autocmd Filetype markdown setlocal wrap
 autocmd Filetype markdown setlocal linebreak
