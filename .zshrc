@@ -5,8 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="intheloop"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -66,6 +65,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
+export EDITOR='vim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -83,13 +83,13 @@ source $ZSH/oh-my-zsh.sh
 alias venv="source venv/bin/activate"
 
 venv_create_2() {
-    virtualenv -p /usr/local/bin/python2 $1
+    virtualenv -p /usr/bin/python2 $1
     ln -s $1 venv
 }
 
 
 venv_create_3() {
-    virtualenv -p /usr/local/bin/python3 $1
+    virtualenv -p /usr/bin/python3 $1
     ln -s $1 venv
 }
 
@@ -138,11 +138,6 @@ PIP_REQUIRE_VIRTUALENV=false;alias anaconda3="PATH=\"//Users/senyorjou/anaconda3
 alias jp="jupyter notebook"
 
 alias tmux="tmux -2"
-# Z
-source `brew --prefix`/etc/profile.d/z.sh
-
-# tell brew do not call home
-export HOMEBREW_NO_ANALYTICS=1
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 find_port() {
@@ -152,9 +147,3 @@ find_port() {
 # U know... locale
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-# The next line updates PATH for the Google Cloud SDK.
-source '/Users/senyorjou/google-cloud-sdk/path.zsh.inc'
-
-# The next line enables shell command completion for gcloud.
-source '/Users/senyorjou/google-cloud-sdk/completion.zsh.inc'
