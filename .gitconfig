@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/senyorjou/.gitignore_global
+	excludesfile = /home/marc/.gitignore_global
 	editor = /usr/local/bin/vim
 [user]
 	name = Marc Jou
@@ -56,3 +56,5 @@
 	default = simple
 [commit]
 	template = /Users/senyorjou/.stCommitMsg
+[diff]
+	external = diff.py
