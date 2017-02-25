@@ -12,13 +12,12 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'diepm/vim-rest-console'
 Plugin 'dkprice/vim-easygrep'
-Plugin 'hoelzro/elm-vim'
+Plugin 'elmcast/elm-vim'
 Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'mattn/emmet-vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -29,7 +28,6 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'wakatime/vim-wakatime'
 Plugin 'Yggdroot/indentLine'
-"Plugin 'Yggdroot/hiPairs'
 
 "Plugin 'taglist.vim'
 
@@ -124,6 +122,10 @@ let g:syntastic_check_on_wq = 0
 " ELM
 let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
+
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
 
 " go-vim
 let g:go_highlight_functions = 1
