@@ -58,3 +58,5 @@
 	template = /Users/senyorjou/.stCommitMsg
 [diff]
 	external = diff.py
+[github]
+	user = senyorjou
