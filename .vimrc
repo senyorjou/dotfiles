@@ -17,6 +17,8 @@ Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'mattn/emmet-vim'
+Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -29,6 +31,7 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'wakatime/vim-wakatime'
 Plugin 'Yggdroot/indentLine'
 
+
 "Plugin 'taglist.vim'
 
 filetype plugin indent on
@@ -37,7 +40,7 @@ set cursorline
 set backspace=2 " make backspace work like most other apps
 set laststatus=2
 set modelines=0
-set clipboard=unnamed
+set clipboard=unnamedplus
 set synmaxcol=128
 set ttyscroll=10
 set encoding=utf-8
