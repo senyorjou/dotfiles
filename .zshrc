@@ -48,15 +48,14 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git docker golang)
 
 # User configuration
-export GOPATH=$HOME/dev/golang
-export STACKPATH=$HOME/.local/bin
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$GOPATH/bin:$STACKPATH:/usr/local/opt/go/libexec/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export GOPATH=$HOME/dev/go
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$GOPATH/bin"
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -98,21 +97,6 @@ venv_create_3() {
 alias run-mongo="mongod --config /usr/local/etc/mongod.conf"
 alias log-mongo="tail -f /usr/local/var/log/mongodb/mongo.log"
 
-# Mysql
-alias run-mysql="mysql.server start"
-alias log-mysql="tail -f /private/var/log/mysqld.log"
-
-# Redis
-alias run-redis="redis-server"
-
-# Postgres
-alias run-psql="postgres -D /usr/local/var/postgres -d 5"
-
-# Apache
-alias run-apache="sudo apachectl restart"
-alias stop-apache="sudo apachectl stop"
-
-
 
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
@@ -123,8 +107,6 @@ export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 alias server="python -m SimpleHTTPServer 8000"
 # Power grep
 alias ggrep="sift"
-# goto golang home
-alias gojou="cd /Users/senyorjou/dev/golang/src/github.com/senyorjou"
 
 # Create a tunnel
 # ssh centos@demo.illuminarysolutions.com -L 27020:127.0.0.1:27017 -i .ssh/pems/illuminary-dev.pem
@@ -143,7 +125,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 find_port() {
     lsof -i :$1
 }
-
-# U know... locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
