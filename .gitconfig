@@ -36,8 +36,6 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
     required = true
-;[diff]
-	;external = /Users/senyorjou/.git_diff_cmd.sh
 [alias]
     st = status
     co = checkout
@@ -56,7 +54,7 @@
 	default = simple
 [commit]
 	template = /Users/senyorjou/.stCommitMsg
-[diff]
-	external = diff.py
+;[diff]
+	;external = diff.py
 [github]
 	user = senyorjou
