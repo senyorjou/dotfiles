@@ -7,10 +7,11 @@ venv
 .venv*
 _docs
 .idea
+.vscode
 _test.*
 _tools
 .coveragerc
 .ipynb_*
 __pycache__
 tags
-
+*.pyc
