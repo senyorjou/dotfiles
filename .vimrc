@@ -26,11 +26,11 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
+Plugin 'IN3D/vim-raml'
 Plugin 'vim-airline/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'wakatime/vim-wakatime'
 Plugin 'Yggdroot/indentLine'
-
 
 "Plugin 'taglist.vim'
 
@@ -79,7 +79,7 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
 " Vertical line at 80
-set colorcolumn=80
+set colorcolumn=100
 
 " Color Scheme
 syntax enable
