@@ -20,6 +20,9 @@ Plugin 'mattn/emmet-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'mxw/vim-jsx'
+Plugin 'rust-lang/rust.vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -79,7 +82,18 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
 " Vertical line at 80
-set colorcolumn=80
+" set colorcolumn=80
+augroup python
+    " clear augroup when reloading vimrc
+    au!
+    autocmd FileType python set colorcolumn=80
+augroup END
+
+augroup javascript
+    au!
+    autocmd FileType javascript  set colorcolumn=110
+augroup END
+
 
 " Color Scheme
 syntax enable
@@ -121,6 +135,9 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8'] " add 'pylint' for extra lint
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
 " ELM
 let g:elm_format_autosave = 1
@@ -150,6 +167,9 @@ au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
+
+
 
 " Trim whitespace on save
 autocmd FileType python,javascript,haskell,elm,css,html  autocmd BufWritePre <buffer> StripWhitespace
