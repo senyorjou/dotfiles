@@ -6,6 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="agnoster.nl"
+#ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -92,6 +93,15 @@ venv_create_3() {
     ln -s $1 venv
 }
 
+venv_create_36() {
+    virtualenv -p /usr/local/bin/python36 $1
+    ln -s $1 venv
+}
+
+pyma() {
+    python manage.py runserver
+}
+
 # Mongo
 # Check for /usr/local/var/mongodb/mongo.lock if not start
 alias run-mongo="mongod --config /usr/local/etc/mongod.conf"
@@ -127,3 +137,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 find_port() {
     lsof -i :$1
 }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

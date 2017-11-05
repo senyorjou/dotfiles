@@ -51,10 +51,12 @@
 	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
     lg = log --oneline --graph --decorate
 [push]
-	default = simple
+	default = current
 [commit]
 	template = /Users/senyorjou/.stCommitMsg
 ;[diff]
 	;external = diff.py
 [github]
 	user = senyorjou
+[branch]
+	autoSetupMerge = always
