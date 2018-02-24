@@ -147,6 +147,7 @@ let g:ycm_semantic_triggers = {
      \}
 
 " go-vim
+let g:go_highlight_types = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -155,6 +156,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
 let g:go_fmt_command = "goimports"
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
@@ -167,11 +169,8 @@ au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
-
-
-
 " Trim whitespace on save
-autocmd FileType python,javascript,haskell,elm,css,html  autocmd BufWritePre <buffer> StripWhitespace
+autocmd FileType python,javascript,haskell,elm,css,html,go  autocmd BufWritePre <buffer> StripWhitespace
 
 autocmd Filetype markdown setlocal wrap
 autocmd Filetype markdown setlocal linebreak
