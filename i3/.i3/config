@@ -13,7 +13,7 @@
 exec_always compton -f
 
 # Set R-Alt key to compose
-exec setxkbmap -option compose:ralt
+exec setxkbmap -option compose:lalt
 
 set $mod Mod4
 set $alt Mod1
@@ -198,7 +198,7 @@ bindsym $alt+q mode "$mode_system"
 # finds out, if available)
 bar {
     #output              primary
-    #output              eDP-1
+    output              eDP-1
     status_command      i3status
     font                pango:monospace 24
 
