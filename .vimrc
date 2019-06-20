@@ -11,8 +11,10 @@ Plugin 'VundleVim/Vundle.vim'
 
 "Plugin 'lifepillar/vim-solarized8'
 "Plugin 'tomasr/molokai'
+"Plugin 'taglist.vim'
 "Plugin 'wakatime/vim-wakatime'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'ambv/black'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'diepm/vim-rest-console'
 Plugin 'dkprice/vim-easygrep'
@@ -30,12 +32,12 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'Yggdroot/indentLine'
-"Plugin 'taglist.vim'
 
 filetype plugin indent on
 
@@ -81,22 +83,30 @@ nnoremap <C-b> :bd<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
+augroup python
+    " clear augroup when reloading vimrc
+    au!
+    autocmd FileType python set colorcolumn=110
+    autocmd BufWritePre *.py execute ':Black'
+augroup END
 
-set colorcolumn=100
+augroup javascript
+    au!
+    autocmd FileType javascript  set colorcolumn=110
+augroup END
 
+set colorcolumn=110
+let g:black_linelength = 110
 " Color Scheme
 syntax enable
-"set background=light
-"let g:solaried_termcolors=256
-"colorscheme solarized8
 colorscheme gruvbox
-" colorscheme molokai
 
 " Change some colors. Map reference --> https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 "hi Visual ctermbg=025
 "hi CursorLine ctermbg=238
 
-let g:gruvbox_contrast_light='hard'
+set background=light
+let g:gruvbox_contrast_light='medium'
 
 
 
@@ -133,18 +143,6 @@ let g:syntastic_python_checkers = ['flake8'] " add 'pylint' for extra lint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
-" Python
-augroup python
-    " clear augroup when reloading vimrc
-    au!
-    autocmd FileType python set colorcolumn=88
-augroup END
-
-" Javascript
-augroup javascript
-    au!
-    autocmd FileType javascript  set colorcolumn=110
-augroup END
 
 " ELM
 let g:elm_format_autosave = 1
@@ -189,6 +187,10 @@ autocmd Filetype markdown setlocal wrap
 autocmd Filetype markdown setlocal linebreak
 autocmd Filetype markdown setlocal nolist
 autocmd Filetype markdown setlocal columns=80
+
+
+" Set Jenkinsfile to groovy
+au BufNewFile,BufRead Jenkinsfile setf groovy
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
