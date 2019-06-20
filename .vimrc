@@ -8,6 +8,10 @@ call vundle#rc()
 Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins
+
+"Plugin 'lifepillar/vim-solarized8'
+"Plugin 'tomasr/molokai'
+"Plugin 'wakatime/vim-wakatime'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'diepm/vim-rest-console'
@@ -15,24 +19,22 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'elmcast/elm-vim'
 Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
-Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
-Plugin 'majutsushi/tagbar'
+Plugin 'morhetz/gruvbox'
 Plugin 'mxw/vim-jsx'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pangloss/vim-javascript'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'wakatime/vim-wakatime'
+Plugin 'vim-airline/vim-airline'
 Plugin 'Yggdroot/indentLine'
-
 "Plugin 'taglist.vim'
 
 filetype plugin indent on
@@ -79,29 +81,24 @@ nnoremap <C-b> :bd<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
-augroup python
-    " clear augroup when reloading vimrc
-    au!
-    autocmd FileType python set colorcolumn=80
-augroup END
-
-augroup javascript
-    au!
-    autocmd FileType javascript  set colorcolumn=110
-augroup END
 
 set colorcolumn=100
 
 " Color Scheme
 syntax enable
-" set background=dark
-" let g:solarized_termcolors=256
-" colorscheme solarized
+"set background=light
+"let g:solaried_termcolors=256
+"colorscheme solarized8
+colorscheme gruvbox
+" colorscheme molokai
 
-colorscheme molokai
 " Change some colors. Map reference --> https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
-hi Visual ctermbg=025
-hi CursorLine ctermbg=238
+"hi Visual ctermbg=025
+"hi CursorLine ctermbg=238
+
+let g:gruvbox_contrast_light='hard'
+
+
 
 " Quickly select the text that was just pasted.
 noremap gV `[v`]
@@ -136,6 +133,19 @@ let g:syntastic_python_checkers = ['flake8'] " add 'pylint' for extra lint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
+" Python
+augroup python
+    " clear augroup when reloading vimrc
+    au!
+    autocmd FileType python set colorcolumn=88
+augroup END
+
+" Javascript
+augroup javascript
+    au!
+    autocmd FileType javascript  set colorcolumn=110
+augroup END
+
 " ELM
 let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
@@ -166,6 +176,11 @@ au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 
 " Trim whitespace on save
 autocmd FileType python,javascript,haskell,elm,css,html,go  autocmd BufWritePre <buffer> StripWhitespace
