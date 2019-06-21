@@ -100,15 +100,12 @@ let g:black_linelength = 110
 " Color Scheme
 syntax enable
 colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark='light'
 
 " Change some colors. Map reference --> https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 "hi Visual ctermbg=025
 "hi CursorLine ctermbg=238
-
-set background=light
-let g:gruvbox_contrast_light='medium'
-
-
 
 " Quickly select the text that was just pasted.
 noremap gV `[v`]
@@ -118,7 +115,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " NERDTree
-nmap <leader>n :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.git', '.pyc', 'venv', 'tags']
 let NERDTreeQuitOnOpen=1
