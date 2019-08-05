@@ -38,6 +38,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'Yggdroot/indentLine'
+Plugin 'dyng/ctrlsf.vim'
 
 filetype plugin indent on
 
@@ -113,6 +114,18 @@ noremap gV `[v`]
 " Stay in visual mode when indenting
 vnoremap < <gv
 vnoremap > >gv
+
+
+" CtrlSF
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
 
 " NERDTree
 nmap <leader>f :NERDTreeToggle<CR>
