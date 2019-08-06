@@ -1,21 +1,44 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+# pyenv path
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
-#ZSH_THEME="robbyrussell"
+
+# Path to your oh-my-zsh installation.
+export ZSH="/home/marc/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -36,41 +59,32 @@ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose golang vi-mode)
-
-# User configuration
-export GOPATH=$HOME/dev/go
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$GOPATH/bin"
+plugins=(docker docker-compose git pyenv)
 
 source $ZSH/oh-my-zsh.sh
 
+# User configuration
+# export MANPATH="/usr/local/man:$MANPATH"
+
 # You may need to manually set your language environment
-export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-export EDITOR='vim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -80,64 +94,40 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias venv="source venv/bin/activate"
 
-venv_create_2() {
-    virtualenv -p /usr/bin/python2 $1
-    ln -s $1 venv
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/marc/google-cloud-sdk/path.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/path.zsh.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/marc/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# aliases
+alias p27='pyenv shell 2.7.16 && py_version'
+alias p36='pyenv shell 3.6.8 && py_version'
+alias p369='pyenv shell 3.6.9 && py_version'
+alias p37='pyenv shell 3.7.4 && py_version'
+alias ve='source ./venv/bin/activate'
+alias vpn='sudo openvpn .config/openvpn/client.ovpn'
+
+py_version() {
+    python -c "import sys;print(sys.version)"
 }
 
-
-venv_create_3() {
-    virtualenv -p /usr/bin/python3 $1
-    ln -s $1 venv
+# functions
+dive() {
+    docker run --rm -it \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           wagoodman/dive:latest \
+           "$1"
 }
 
-venv_create_36() {
-    virtualenv -p /usr/local/bin/python36 $1
-    ln -s $1 venv
+fgrep() {
+    grep -Rin --include="*.py" --exclude-dir=venv $1 .
 }
 
-pyma() {
-    python manage.py runserver
+killdocker() {
+    docker stop $(docker ps -aq)
+    docker rm $(docker ps -aq)
+    docker volume rm $(docker volume ls -q --filter name=test)
+    docker network rm $(docker network ls --filter name=test -q)
 }
-
-# Mongo
-# Check for /usr/local/var/mongodb/mongo.lock if not start
-alias run-mongo="mongod --config /usr/local/etc/mongod.conf"
-alias log-mongo="tail -f /usr/local/var/log/mongodb/mongo.log"
-
-# ElasticSearch
-alias run-es="sudo -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch"
-
-# pip should only run if there is a virtualenv currently activated
-export PIP_REQUIRE_VIRTUALENV=true
-# cache pip-installed packages to avoid re-downloading
-export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
-
-# Python SimpleHTTPServer
-alias server="python -m SimpleHTTPServer 8000"
-# Power grep
-alias ggrep="sift"
-
-# Create a tunnel
-# ssh centos@demo.illuminarysolutions.com -L 27020:127.0.0.1:27017 -i .ssh/pems/illuminary-dev.pem
-
-
-# Anaconda
-PIP_REQUIRE_VIRTUALENV=false;alias anaconda="PATH=\"//Users/senyorjou/anaconda/bin:$PATH\"; ipython"
-alias nb="ipython notebook"
-
-PIP_REQUIRE_VIRTUALENV=false;alias anaconda3="PATH=\"//Users/senyorjou/anaconda3/bin:$PATH\"; ipython3"
-alias jp="jupyter notebook"
-
-alias tmux="tmux -2"
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-find_port() {
-    lsof -i :$1
-}
-
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
