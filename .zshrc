@@ -96,10 +96,9 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/marc/google-cloud-sdk/path.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/usr/share/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/share/google-cloud-sdk/path.zsh.inc'; fi
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/marc/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/completion.zsh.inc'; fi
-
 
 # aliases
 alias p27='pyenv shell 2.7.16 && py_version'
@@ -107,7 +106,7 @@ alias p36='pyenv shell 3.6.8 && py_version'
 alias p369='pyenv shell 3.6.9 && py_version'
 alias p37='pyenv shell 3.7.4 && py_version'
 alias ve='source ./venv/bin/activate'
-alias vpn='sudo openvpn .config/openvpn/client.ovpn'
+alias vpn='sudo openvpn .config/client.ovpn'
 
 py_version() {
     python -c "import sys;print(sys.version)"
@@ -131,3 +130,10 @@ killdocker() {
     docker volume rm $(docker volume ls -q --filter name=test)
     docker network rm $(docker network ls --filter name=test -q)
 }
+
+# NVM
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export LD_LIBRARY_PATH=/usr/local/lib

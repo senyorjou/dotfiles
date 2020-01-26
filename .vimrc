@@ -9,15 +9,21 @@ Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins
 
+"Plugin 'leafoftree/vim-vue-plugin'
 "Plugin 'lifepillar/vim-solarized8'
-"Plugin 'tomasr/molokai'
+"Plugin 'psf/black'
+"Plugin 'supercollider/scvim.git'
 "Plugin 'taglist.vim'
+"Plugin 'tidalcycles/vim-tidal'
+"Plugin 'tomasr/molokai'
 "Plugin 'wakatime/vim-wakatime'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'ambv/black'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'diepm/vim-rest-console'
 Plugin 'dkprice/vim-easygrep'
+Plugin 'dyng/ctrlsf.vim'
 Plugin 'elmcast/elm-vim'
 Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
@@ -27,18 +33,15 @@ Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'mxw/vim-jsx'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
-Plugin 'Yggdroot/indentLine'
-Plugin 'dyng/ctrlsf.vim'
 
 filetype plugin indent on
 
@@ -84,11 +87,13 @@ nnoremap <C-b> :bd<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
+" let vim know here black lives
+"let g:black_virtualenv="~/.pyenv/versions/3.6.9/lib/python3.6/site-packages/black"
 augroup python
     " clear augroup when reloading vimrc
     au!
     autocmd FileType python set colorcolumn=110
-    autocmd BufWritePre *.py execute ':Black'
+    "autocmd BufWritePre *.py execute ':Black'
 augroup END
 
 augroup javascript
@@ -101,12 +106,9 @@ let g:black_linelength = 110
 " Color Scheme
 syntax enable
 colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark='light'
-
-" Change some colors. Map reference --> https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
-"hi Visual ctermbg=025
-"hi CursorLine ctermbg=238
+let g:gruvbox_contrast_light='hard'
+let g:gruvbox_hls_cursor='green'
+set background=light
 
 " Quickly select the text that was just pasted.
 noremap gV `[v`]
@@ -191,7 +193,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 
 " Trim whitespace on save
-autocmd FileType python,javascript,haskell,elm,css,html,go  autocmd BufWritePre <buffer> StripWhitespace
+autocmd FileType python,javascript,haskell,elm,css,html,go,c  autocmd BufWritePre <buffer> StripWhitespace
 
 autocmd Filetype markdown setlocal wrap
 autocmd Filetype markdown setlocal linebreak
@@ -257,3 +259,9 @@ nmap <leader>t :TagbarToggle<CR>
 " let Tlist_Use_Right_Window = 1
 " let Tlist_File_Fold_Auto_Close = 1
 " map <F7> :TlistToggle<CR>
+
+" SuperCollider
+let g:sclangTerm = "gnome-terminal -x $SHELL -ic"
+let g:scFlash = 1
+let g:sclangPipeApp    = "~/.vim/bundle/scvim/bin/start_pipe"
+let g:sclangDispatcher = "~/.vim/bundle/scvim/bin/sc_dispatcher"
