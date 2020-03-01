@@ -1,9 +1,9 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
 # pyenv path
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 
 # Path to your oh-my-zsh installation.
@@ -107,6 +107,7 @@ alias p369='pyenv shell 3.6.9 && py_version'
 alias p37='pyenv shell 3.7.4 && py_version'
 alias ve='source ./venv/bin/activate'
 alias vpn='sudo openvpn .config/client.ovpn'
+alias killaudio="pulseaudio -k && sudo alsa force-reload"
 
 py_version() {
     python -c "import sys;print(sys.version)"
@@ -137,3 +138,7 @@ killdocker() {
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export LD_LIBRARY_PATH=/usr/local/lib
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
