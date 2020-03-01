@@ -1,71 +1,73 @@
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
-
-" Let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-
 " My Plugins
+call plug#begin('~/.vim/plugged')
+    Plug 'airblade/vim-gitgutter'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'majutsushi/tagbar'
+    Plug 'morhetz/gruvbox'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'ntpeters/vim-better-whitespace'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'scrooloose/nerdtree'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-fugitive'
+    Plug 'vim-airline/vim-airline'
+call plug#end()
 
-"Plugin 'leafoftree/vim-vue-plugin'
-"Plugin 'lifepillar/vim-solarized8'
-"Plugin 'psf/black'
-"Plugin 'supercollider/scvim.git'
-"Plugin 'taglist.vim'
-"Plugin 'tidalcycles/vim-tidal'
-"Plugin 'tomasr/molokai'
-"Plugin 'wakatime/vim-wakatime'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Yggdroot/indentLine'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'diepm/vim-rest-console'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'dyng/ctrlsf.vim'
-Plugin 'elmcast/elm-vim'
-Plugin 'fatih/vim-go'
-Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
-Plugin 'majutsushi/tagbar'
-Plugin 'mattn/emmet-vim'
-Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'mxw/vim-jsx'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'pangloss/vim-javascript'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
 
-filetype plugin indent on
+" Plugin 'leafoftree/vim-vue-plugin'
+" Plugin 'lifepillar/vim-solarized8'
+" Plugin 'psf/black'
+" Plugin 'supercollider/scvim.git'
+" Plugin 'taglist.vim'
+" Plugin 'tidalcycles/vim-tidal'
+" Plugin 'tomasr/molokai'
+" Plugin 'wakatime/vim-wakatime'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Yggdroot/indentLine'
+" Plugin 'airblade/vim-gitgutter'
+" Plugin 'bronson/vim-trailing-whitespace'
+" Plugin 'diepm/vim-rest-console'
+" Plugin 'dkprice/vim-easygrep'
+" Plugin 'dyng/ctrlsf.vim'
+" Plugin 'elmcast/elm-vim'
+" Plugin 'fatih/vim-go'
+" Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
+" Plugin 'mattn/emmet-vim'
+" Plugin 'mattn/webapi-vim'
+" Plugin 'mxw/vim-jsx'
+" Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'scrooloose/syntastic'
 
-set cursorline
+"set relativenumber
 set backspace=2 " make backspace work like most other apps
-set laststatus=2
-set modelines=0
 set clipboard=unnamedplus
-set synmaxcol=128
-set ttyscroll=10
+set cursorline
 set encoding=utf-8
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set nowrap
-"set relativenumber
-set number
-set nowritebackup
-set noswapfile
-set nobackup
+set hidden
 set hlsearch
 set ignorecase
+set laststatus=2
+set modelines=0
+set nobackup
+set noswapfile
+set nowrap
+set nowritebackup
+set number
+set shiftwidth=4
 set smartcase
 set splitright
+set synmaxcol=128
+set tabstop=4
+set ttyscroll=10
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+
 
 " Visual hint for brackets
 set showmatch
@@ -82,10 +84,53 @@ map <Up>   gk
 nnoremap j gj
 nnoremap k gk
 
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 " List buffers and cycle
-nnoremap <C-b> :bd<CR>
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
+"nnoremap <C-b> :bd<CR>
+"nnoremap <Tab> :bnext<CR>
+"nnoremap <S-Tab> :bprevious<CR>
 
 " let vim know here black lives
 "let g:black_virtualenv="~/.pyenv/versions/3.6.9/lib/python3.6/site-packages/black"
@@ -140,9 +185,9 @@ let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_check_on_open = 0
 let g:syntastic_error_symbol = "✗"
@@ -157,12 +202,12 @@ let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
 
 " ELM
-let g:elm_format_autosave = 1
-let g:elm_syntastic_show_warnings = 1
+"let g:elm_format_autosave = 1
+"let g:elm_syntastic_show_warnings = 1
 
-let g:ycm_semantic_triggers = {
-     \ 'elm' : ['.'],
-     \}
+"let g:ycm_semantic_triggers = {
+     "\ 'elm' : ['.'],
+     "\}
 
 " go-vim
 let g:go_highlight_types = 1
@@ -242,12 +287,12 @@ autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 
 " YouCompleteMe
-nnoremap <C-j> :YcmCompleter GoTo<CR>
-nnoremap <C-k> :YcmCompleter GetDoc<CR>
+"nnoremap <C-j> :YcmCompleter GoTo<CR>
+"nnoremap <C-k> :YcmCompleter GetDoc<CR>
 
 " Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
+"noremap <Leader>h :<C-u>split<CR>
+"noremap <Leader>v :<C-u>vsplit<CR>
 
 " TagBar
 nmap <leader>t :TagbarToggle<CR>
@@ -261,7 +306,7 @@ nmap <leader>t :TagbarToggle<CR>
 " map <F7> :TlistToggle<CR>
 
 " SuperCollider
-let g:sclangTerm = "gnome-terminal -x $SHELL -ic"
-let g:scFlash = 1
-let g:sclangPipeApp    = "~/.vim/bundle/scvim/bin/start_pipe"
-let g:sclangDispatcher = "~/.vim/bundle/scvim/bin/sc_dispatcher"
+"let g:sclangTerm = "gnome-terminal -x $SHELL -ic"
+"let g:scFlash = 1
+"let g:sclangPipeApp    = "~/.vim/bundle/scvim/bin/start_pipe"
+"let g:sclangDispatcher = "~/.vim/bundle/scvim/bin/sc_dispatcher"
