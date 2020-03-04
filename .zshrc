@@ -5,7 +5,6 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
-
 # Path to your oh-my-zsh installation.
 export ZSH="/home/marc/.oh-my-zsh"
 
