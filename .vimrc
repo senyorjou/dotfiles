@@ -1,17 +1,22 @@
 " My Plugins
 call plug#begin('~/.vim/plugged')
+    Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
+    Plug 'ayu-theme/ayu-vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'majutsushi/tagbar'
-    Plug 'morhetz/gruvbox'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'ntpeters/vim-better-whitespace'
+    Plug 'pbogut/fzf-mru.vim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'scrooloose/nerdtree'
+    Plug 'sheerun/vim-polyglot'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-python/python-syntax'
+    Plug 'sainnhe/gruvbox-material'
 call plug#end()
 
 
@@ -66,7 +71,7 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
-
+syntax enable
 
 
 " Visual hint for brackets
@@ -83,6 +88,31 @@ map <Down> gj
 map <Up>   gk
 nnoremap j gj
 nnoremap k gk
+
+" This is for tmux
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
+"set background=dark
+set background=light
+
+" Color Scheme
+"colorscheme gruvbox
+let g:gruvbox_contrast_light='hard'
+let g:gruvbox_hls_cursor='green'
+
+"colorscheme ayu
+let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+
+" colorscheme gruvboxmaterial
+colorscheme gruvbox-material
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_cursor = 'purple'
 
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -128,7 +158,8 @@ function! s:show_documentation()
   endif
 endfunction
 " List buffers and cycle
-"nnoremap <C-b> :bd<CR>
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-f> :Files<CR>
 "nnoremap <Tab> :bnext<CR>
 "nnoremap <S-Tab> :bprevious<CR>
 
@@ -138,6 +169,8 @@ augroup python
     " clear augroup when reloading vimrc
     au!
     autocmd FileType python set colorcolumn=110
+    let g:black_linelength = 110
+    let g:python_highlight_all = 1
     "autocmd BufWritePre *.py execute ':Black'
 augroup END
 
@@ -147,13 +180,6 @@ augroup javascript
 augroup END
 
 set colorcolumn=110
-let g:black_linelength = 110
-" Color Scheme
-syntax enable
-colorscheme gruvbox
-let g:gruvbox_contrast_light='hard'
-let g:gruvbox_hls_cursor='green'
-set background=light
 
 " Quickly select the text that was just pasted.
 noremap gV `[v`]
