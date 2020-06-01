@@ -14,3 +14,4 @@ _tools
 __pycache__
 tags
 *.pyc
+.ycm_extra_conf.py

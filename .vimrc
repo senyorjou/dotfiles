@@ -1,49 +1,43 @@
 " My Plugins
 call plug#begin('~/.vim/plugged')
-    Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
-    Plug 'ayu-theme/ayu-vim'
+    Plug 'diepm/vim-rest-console'
+    Plug 'dyng/ctrlsf.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    Plug 'leafoftree/vim-vue-plugin'
     Plug 'majutsushi/tagbar'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'morhetz/gruvbox'
     Plug 'ntpeters/vim-better-whitespace'
+    Plug 'nvie/vim-flake8'
     Plug 'pbogut/fzf-mru.vim'
+    Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+    Plug 'psf/black', { 'tag': '19.10b0' }
+    Plug 'sainnhe/gruvbox-material'
     Plug 'scrooloose/nerdcommenter'
     Plug 'scrooloose/nerdtree'
+    Plug 'scrooloose/syntastic'
     Plug 'sheerun/vim-polyglot'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
+    Plug 'Valloric/YouCompleteMe'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-python/python-syntax'
-    Plug 'sainnhe/gruvbox-material'
 call plug#end()
 
 
 " Plugin 'leafoftree/vim-vue-plugin'
-" Plugin 'lifepillar/vim-solarized8'
-" Plugin 'psf/black'
-" Plugin 'supercollider/scvim.git'
 " Plugin 'taglist.vim'
 " Plugin 'tidalcycles/vim-tidal'
-" Plugin 'tomasr/molokai'
 " Plugin 'wakatime/vim-wakatime'
-" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Yggdroot/indentLine'
-" Plugin 'airblade/vim-gitgutter'
 " Plugin 'bronson/vim-trailing-whitespace'
-" Plugin 'diepm/vim-rest-console'
 " Plugin 'dkprice/vim-easygrep'
-" Plugin 'dyng/ctrlsf.vim'
-" Plugin 'elmcast/elm-vim'
-" Plugin 'fatih/vim-go'
-" Plugin 'kien/ctrlp.vim' " UPDATE THIS!!! Not maintained
 " Plugin 'mattn/emmet-vim'
 " Plugin 'mattn/webapi-vim'
 " Plugin 'mxw/vim-jsx'
 " Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 " Plugin 'pangloss/vim-javascript'
-" Plugin 'scrooloose/syntastic'
 
 "set relativenumber
 set backspace=2 " make backspace work like most other apps
@@ -94,91 +88,42 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-"set background=dark
+set background=dark
 set background=light
 
-" Color Scheme
-"colorscheme gruvbox
-let g:gruvbox_contrast_light='hard'
-let g:gruvbox_hls_cursor='green'
-
-"colorscheme ayu
-let ayucolor="light"  " for light version of theme
-"let ayucolor="mirage" " for mirage version of theme
-"let ayucolor="dark"   " for dark version of theme
-
 " colorscheme gruvboxmaterial
-colorscheme gruvbox-material
-let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_background = 'soft'  " hard, medium, soft
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_cursor = 'purple'
+colorscheme gruvbox-material
 
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 " List buffers and cycle
 nnoremap <C-b> :Buffers<CR>
-nnoremap <C-f> :Files<CR>
-"nnoremap <Tab> :bnext<CR>
-"nnoremap <S-Tab> :bprevious<CR>
+nnoremap <C-n> :Files<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap q :bd<CR>
 
-" let vim know here black lives
-"let g:black_virtualenv="~/.pyenv/versions/3.6.9/lib/python3.6/site-packages/black"
 augroup python
     " clear augroup when reloading vimrc
     au!
     autocmd FileType python set colorcolumn=110
     let g:black_linelength = 110
     let g:python_highlight_all = 1
-    "autocmd BufWritePre *.py execute ':Black'
+    let g:black_virtualenv="~/.vim_black"
+    autocmd BufWritePre *.py execute ':Black'
 augroup END
 
 augroup javascript
     au!
-    autocmd FileType javascript  set colorcolumn=110
+    autocmd FileType javascript  set colorcolumn=108
+    set shiftwidth=2
+    set tabstop=2
 augroup END
 
+
+"autocmd BufWritePre *.js Neoformat
 set colorcolumn=110
 
 " Quickly select the text that was just pasted.
@@ -205,17 +150,20 @@ nmap <leader>f :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.git', '.pyc', 'venv', 'tags']
 let NERDTreeQuitOnOpen=1
+" Open nerdtree if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Emmet
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
 " Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_aggregate_errors = 1
@@ -226,14 +174,8 @@ let g:syntastic_python_checkers = ['flake8'] " add 'pylint' for extra lint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
-
-" ELM
-"let g:elm_format_autosave = 1
-"let g:elm_syntastic_show_warnings = 1
-
-"let g:ycm_semantic_triggers = {
-     "\ 'elm' : ['.'],
-     "\}
+" YCM
+let g:ycm_confirm_extra_conf = 0
 
 " go-vim
 let g:go_highlight_types = 1
@@ -262,9 +204,8 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-
 " Trim whitespace on save
-autocmd FileType python,javascript,haskell,elm,css,html,go,c  autocmd BufWritePre <buffer> StripWhitespace
+autocmd FileType python,javascript,haskell,elm,css,html,go,c,ocaml  autocmd BufWritePre <buffer> StripWhitespace
 
 autocmd Filetype markdown setlocal wrap
 autocmd Filetype markdown setlocal linebreak
@@ -277,8 +218,6 @@ au BufNewFile,BufRead Jenkinsfile setf groovy
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
-
-" air-line
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -313,26 +252,48 @@ autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 
 " YouCompleteMe
-"nnoremap <C-j> :YcmCompleter GoTo<CR>
-"nnoremap <C-k> :YcmCompleter GetDoc<CR>
+nnoremap <C-j> :YcmCompleter GoTo<CR>
+nnoremap <C-k> :YcmCompleter GetDoc<CR>
+
+" Abbreviations
+iabbrev pdb import pdb;pdb.set_trace()
 
 " Split
-"noremap <Leader>h :<C-u>split<CR>
-"noremap <Leader>v :<C-u>vsplit<CR>
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
 
 " TagBar
 nmap <leader>t :TagbarToggle<CR>
-"
-" TagList Plugin Configuration
-" let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
-" let Tlist_GainFocus_On_ToggleOpen = 1
-" let Tlist_Close_On_Select = 1
-" let Tlist_Use_Right_Window = 1
-" let Tlist_File_Fold_Auto_Close = 1
-" map <F7> :TlistToggle<CR>
 
-" SuperCollider
-"let g:sclangTerm = "gnome-terminal -x $SHELL -ic"
-"let g:scFlash = 1
-"let g:sclangPipeApp    = "~/.vim/bundle/scvim/bin/start_pipe"
-"let g:sclangDispatcher = "~/.vim/bundle/scvim/bin/sc_dispatcher"
+" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+let s:opam_share_dir = system("opam config var share")
+let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+let s:opam_configuration = {}
+
+function! OpamConfOcpIndent()
+  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+endfunction
+let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+function! OpamConfOcpIndex()
+  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+endfunction
+let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+function! OpamConfMerlin()
+  let l:dir = s:opam_share_dir . "/merlin/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+for tool in s:opam_packages
+  " Respect package order (merlin should be after ocp-index)
+  if count(s:opam_available_tools, tool) > 0
+    call s:opam_configuration[tool]()
+  endif
+endfor
+" ## end of OPAM user-setup addition for vim / base ## keep this line

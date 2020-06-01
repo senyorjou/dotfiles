@@ -1,10 +1,14 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$PATH
+export PYENV_VERSION=3.7.6
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 # pyenv path
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv virtualenv-init -)"
+# Cargo for rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
+export LD_LIBRARY_PATH=/usr/local/lib
 # Path to your oh-my-zsh installation.
 export ZSH="/home/marc/.oh-my-zsh"
 
@@ -72,7 +76,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(docker docker-compose git pyenv)
+plugins=(docker docker-compose git jump kubectl pyenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -93,12 +97,6 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/usr/share/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/share/google-cloud-sdk/path.zsh.inc'; fi
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/marc/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/completion.zsh.inc'; fi
-
 # aliases
 alias p27='pyenv shell 2.7.16 && py_version'
 alias p36='pyenv shell 3.6.8 && py_version'
@@ -107,6 +105,7 @@ alias p37='pyenv shell 3.7.4 && py_version'
 alias ve='source ./venv/bin/activate'
 alias vpn='sudo openvpn .config/client.ovpn'
 alias killaudio="pulseaudio -k && sudo alsa force-reload"
+alias ycm_start='cp $HOME/dotfiles/.ycm_extra_conf.py .'
 
 py_version() {
     python -c "import sys;print(sys.version)"
@@ -118,10 +117,6 @@ dive() {
            -v /var/run/docker.sock:/var/run/docker.sock \
            wagoodman/dive:latest \
            "$1"
-}
-
-fgrep() {
-    grep -Rin --include="*.py" --exclude-dir=venv $1 .
 }
 
 killdocker() {
@@ -136,8 +131,15 @@ killdocker() {
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export LD_LIBRARY_PATH=/usr/local/lib
+# opam configuration
+test -r /home/marc/.opam/opam-init/init.zsh && . /home/marc/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/marc/google-cloud-sdk/path.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/marc/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/completion.zsh.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude venv'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
