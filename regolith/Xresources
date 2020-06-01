@@ -1,0 +1,12 @@
+i3-wm.gaps.inner.size: 5
+
+i3-wm.workspace.01.name: 1: 1 term
+i3-wm.workspace.02.name: 2: 2 code
+i3-wm.workspace.03.name: 3: 3 app
+i3-wm.workspace.04.name: 4: 4 tools
+i3-wm.workspace.05.name: 5: 5 proj
+i3-wm.workspace.06.name: 6: 6 web
+i3-wm.workspace.07.name: 7: 7 any
+i3-wm.workspace.08.name: 8: 8 slack
+i3-wm.workspace.09.name: 9: 9 mail
+i3-wm.workspace.10.name: 10: 0 fun
