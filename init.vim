@@ -97,6 +97,8 @@ Plug 'Shougo/context_filetype.vim'
 " Just to add the python go-to-definition and similar features, autocompletion
 " from this plugin is disabled
 Plug 'davidhalter/jedi-vim'
+" Black
+Plug 'psf/black', { 'tag': '19.10b0' }
 " Automatically close parenthesis, etc
 Plug 'Townk/vim-autoclose'
 " Surround
@@ -210,6 +212,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set clipboard+=unnamedplus
+set nowrap
 
 " show line numbers
 set nu
@@ -228,7 +231,7 @@ endif
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
-set background=dark
+set background=light
 
 " colorscheme gruvboxmaterial
 let g:gruvbox_material_background = 'soft'  " hard, medium, soft
@@ -257,6 +260,9 @@ map <M-Right> :tabn<CR>
 imap <M-Right> <ESC>:tabn<CR>
 map <M-Left> :tabp<CR>
 imap <M-Left> <ESC>:tabp<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap q :bd<CR>
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -271,10 +277,16 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 " (neomake, ...)
 set shell=/bin/bash 
 
-" Ability to add python breakpoints
-" (I use ipdb, but you can change it to whatever tool you use for debugging)
-au FileType python map <silent> <leader>b Oimport ipdb; ipdb.set_trace()<esc>
-
+augroup python
+    " clear augroup when reloading vimrc
+    au!
+    autocmd FileType python set colorcolumn=110
+    au FileType python map <silent> <leader>b Oimport ipdb; ipdb.set_trace()<esc>
+    let g:black_virtualenv="~/.vim_black"
+    let g:black_linelength = 110
+    autocmd BufWritePre *.py execute ':Isort'
+    autocmd BufWritePre *.py execute ':Black'
+augroup END
 " ============================================================================
 " Plugins settings and mappings
 " Edit them as you wish.
@@ -289,11 +301,12 @@ let g:tagbar_autofocus = 1
 " NERDTree -----------------------------
 
 " toggle nerdtree display
-map <F3> :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeToggle<CR>
 " open nerdtree with the current file selected
 nmap ,t :NERDTreeFind<CR>
 " don;t show these file types
 let NERDTreeIgnore = ['tmp', '.git', '\.pyc$', '\.pyo$', 'venv', 'tags']
+let NERDTreeQuitOnOpen=1
 
 " Enable folder icons
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -329,16 +342,20 @@ map <F2> :TaskList<CR>
 autocmd! BufWritePost * Neomake
 
 " Check code as python3 by default
-let g:neomake_python_python_maker = neomake#makers#ft#python#python()
-let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
-let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
-let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
+"let g:neomake_python_python_maker = neomake#makers#ft#python#python()
+"let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
+"let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
+"let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
+
+let g:neomake_python_enabled_makers = ['flake8', 'mypy']
 
 " Disable error messages inside the buffer, next to the problematic line
 let g:neomake_virtualtext_current_error = 0
+let g:neomake#makers#ft#python#project_root_files = ['setup.cfg']
 
 " Fzf ------------------------------
-
+" buffer finder mapping
+nmap ,b :Buffers<CR>
 " file finder mapping
 nmap ,e :Files<CR>
 " tags (symbols) in current file finder mapping
