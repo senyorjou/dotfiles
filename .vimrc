@@ -174,8 +174,12 @@ let g:syntastic_python_checkers = ['flake8'] " add 'pylint' for extra lint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
-" YCM
+" YouCompleteMe
+nnoremap <C-j> :YcmCompleter GoTo<CR>
+nnoremap <C-k> :YcmCompleter GetDoc<CR>
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_disable_signature_help = 1
+let g:ycm_autoclose_preview_window_after_completion=1
 
 " go-vim
 let g:go_highlight_types = 1
@@ -251,9 +255,6 @@ let g:airline_symbols.linenr = ''
 autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 
-" YouCompleteMe
-nnoremap <C-j> :YcmCompleter GoTo<CR>
-nnoremap <C-k> :YcmCompleter GetDoc<CR>
 
 " Abbreviations
 iabbrev pdb import pdb;pdb.set_trace()
