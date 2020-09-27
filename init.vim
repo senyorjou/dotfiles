@@ -116,7 +116,7 @@ Plug 'lilydjwg/colorizer'
 " Window chooser
 Plug 't9md/vim-choosewin'
 " Automatically sort python imports
-Plug 'fisadev/vim-isort'
+"Plug 'fisadev/vim-isort'
 " Highlight matching html tags
 Plug 'valloric/MatchTagAlways'
 " Generate html in a simple way
@@ -129,6 +129,8 @@ Plug 'mhinz/vim-signify'
 Plug 'vim-scripts/YankRing.vim'
 " Linters
 Plug 'neomake/neomake'
+" GO
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Relative numbering of lines (0 is the current line)
 " (disabled by default because is very intrusive and can't be easily toggled
 " on/off. When the plugin is present, will always activate the relative
@@ -137,6 +139,15 @@ Plug 'neomake/neomake'
 Plug 'myusuf3/numbers.vim'
 " Nice icons in the file explorer and file type status line.
 Plug 'ryanoasis/vim-devicons'
+" Color lines 
+Plug 'miyakogi/conoline.vim'
+
+" Clojure stuff
+Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+Plug 'guns/vim-clojure-highlight'
+Plug 'luochen1990/rainbow'
+Plug 'clojure-vim/async-clj-omni'
 
 if using_vim
     " Consoles as buffers (neovim has its own consoles as buffers)
@@ -214,6 +225,10 @@ set shiftwidth=4
 set clipboard+=unnamedplus
 set nowrap
 
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype css setlocal ts=2 sw=2 expandtab
+
 " show line numbers
 set nu
 
@@ -260,9 +275,10 @@ map <M-Right> :tabn<CR>
 imap <M-Right> <ESC>:tabn<CR>
 map <M-Left> :tabp<CR>
 imap <M-Left> <ESC>:tabp<CR>
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
+nnoremap <Tab> :Buffers<CR>
+"nnoremap <S-Tab> :bprevious<CR>
 nnoremap q :bd<CR>
+"nnoremap q :q<CR>
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -284,7 +300,7 @@ augroup python
     au FileType python map <silent> <leader>b Oimport ipdb; ipdb.set_trace()<esc>
     let g:black_virtualenv="~/.vim_black"
     let g:black_linelength = 110
-    autocmd BufWritePre *.py execute ':Isort'
+    "autocmd BufWritePre *.py execute ':Isort'
     autocmd BufWritePre *.py execute ':Black'
 augroup END
 " ============================================================================
@@ -388,6 +404,7 @@ call deoplete#custom#option({
 " complete with words from any opened file
 let g:context_filetype#same_filetypes = {}
 let g:context_filetype#same_filetypes._ = '_'
+call deoplete#custom#option('keyword_patterns', {'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'})
 
 " Jedi-vim ------------------------------
 
@@ -452,10 +469,11 @@ else
 endif
 
 " Airline ------------------------------
-
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
 
 " Fancy Symbols!!
 
@@ -476,6 +494,83 @@ if fancy_symbols_enabled
 else
     let g:webdevicons_enable = 0
 endif
+
+" GO
+
+" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+
+augroup go
+  autocmd!
+
+  " Open :GoDeclsDir with ctrl-g
+  nmap <C-g> :GoDeclsDir<cr>
+  imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+  
+  " Show by default 4 spaces for a tab
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+  " :GoBuild and :GoTestCompile
+  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+  " :GoTest
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+  " :GoRun
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+  " :GoDoc
+  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+  " :GoCoverageToggle
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+  " :GoInfo
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+  " :GoMetaLinter
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+
+  " :GoDef but opens in a vertical split
+  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+  " :GoDef but opens in a horizontal split
+  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+
+  " :GoAlternate  commands :A, :AV, :AS and :AT
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+" build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+" For light colorschemes
+let g:conoline_color_normal_light = 'guibg=#eaeaea'
+let g:conoline_color_normal_nr_light = 'guibg=#eaeaea'
+let g:conoline_color_insert_light = 'guibg=#C9EBF8'
+let g:conoline_color_insert_nr_light = 'guibg=#C9EBF8'
+hi Visual term=reverse cterm=reverse guibg=#eaeaea
 
 " Custom configurations ----------------
 
