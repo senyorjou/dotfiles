@@ -8,6 +8,10 @@ eval "$(pyenv init -)"
 # Cargo for rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/dev/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
 export LD_LIBRARY_PATH=/usr/local/lib
 # Path to your oh-my-zsh installation.
 export ZSH="/home/marc/.oh-my-zsh"
@@ -99,10 +103,11 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # aliases
 alias p27='pyenv shell 2.7.16 && py_version'
-alias p36='pyenv shell 3.6.8 && py_version'
-alias p369='pyenv shell 3.6.9 && py_version'
+alias p36='pyenv shell 3.6.9 && py_version'
 alias p37='pyenv shell 3.7.4 && py_version'
+alias p38='pyenv shell 3.8.1 && py_version'
 alias ve='source ./venv/bin/activate'
+alias pyvim='pip install pynvim ipdb isort'
 alias vpn='sudo openvpn .config/client.ovpn'
 alias killaudio="pulseaudio -k && sudo alsa force-reload"
 alias ycm_start='cp $HOME/dotfiles/.ycm_extra_conf.py .'
@@ -143,3 +148,5 @@ if [ -f '/home/marc/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/marc/g
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude venv'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+eval "$(starship init zsh)"
