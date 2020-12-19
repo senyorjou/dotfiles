@@ -6,7 +6,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 #eval "$(pyenv virtualenv-init -)"
 # Cargo for rust
-export PATH="$HOME/.cargo/bin:$PATH"
+# export PATH="$HOME/.cargo/bin:$PATH"
 
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/dev/go
@@ -105,7 +105,7 @@ export LANG=en_US.UTF-8
 alias p27='pyenv shell 2.7.16 && py_version'
 alias p36='pyenv shell 3.6.9 && py_version'
 alias p37='pyenv shell 3.7.4 && py_version'
-alias p38='pyenv shell 3.8.1 && py_version'
+alias p38='pyenv shell 3.8.4 && py_version'
 alias ve='source ./venv/bin/activate'
 alias pyvim='pip install pynvim ipdb isort'
 alias vpn='sudo openvpn .config/client.ovpn'
