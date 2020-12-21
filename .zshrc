@@ -1,10 +1,10 @@
 # If you come from bash you might have to change your $PATH.
-export PYENV_VERSION=3.7.6
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PYENV_VERSION=3.8.4
 # pyenv path
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH=$HOME/.pyenv/bin:$PATH
 eval "$(pyenv init -)"
 #eval "$(pyenv virtualenv-init -)"
+
 # Cargo for rust
 # export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -110,7 +110,7 @@ alias ve='source ./venv/bin/activate'
 alias pyvim='pip install pynvim ipdb isort'
 alias vpn='sudo openvpn .config/client.ovpn'
 alias killaudio="pulseaudio -k && sudo alsa force-reload"
-alias ycm_start='cp $HOME/dotfiles/.ycm_extra_conf.py .'
+#alias ycm_start='cp $HOME/dotfiles/.ycm_extra_conf.py .'
 
 py_version() {
     python -c "import sys;print(sys.version)"
@@ -137,7 +137,7 @@ killdocker() {
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # opam configuration
-test -r /home/marc/.opam/opam-init/init.zsh && . /home/marc/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# test -r /home/marc/.opam/opam-init/init.zsh && . /home/marc/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/marc/google-cloud-sdk/path.zsh.inc' ]; then . '/home/marc/google-cloud-sdk/path.zsh.inc'; fi
