@@ -15,12 +15,43 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; miscellania
+(set-language-environment "UTF-8")
+
+(set-default-coding-systems 'utf-8)
+
+(set-face-attribute 'default nil
+                    :family "Essential PragmataPro"
+                    :height 143
+                    :slant 'normal
+                    :weight 'normal
+                    :width 'normal)
+
+(global-set-key (kbd "C-\\") 'comment-or-uncomment-region) ; easy binding for commenting
+(global-set-key (kbd "C-x l") 'bookmark-bmenu-list)
+
+(when (window-system)
+  (scroll-bar-mode -1))            ;; no scroll bar
+;;(tool-bar-mode 0)                ;; no tool bar
+;;(menu-bar-mode 0)                ;; no menu bar
+(show-paren-mode 1)                ;; visualize matching parenthesees
+(global-hl-line-mode 1)            ;; highlight current line
+(global-display-line-numbers-mode t)
+;;(setq linum-format "%4d \u2591 ")  ;; and give some air
+(set-cursor-color "LightSalmon") 
+
+
 ;; better-defaults - https://melpa.org/#/better-defaults
 (use-package better-defaults :defer t :ensure t)
 
 ;; make shell ENV vars available
 (use-package exec-path-from-shell :ensure t)
 (exec-path-from-shell-initialize)
+
+(use-package ace-window
+  :ensure t
+  :defer t
+  :bind ("C-x o" . ace-window))
 
 (use-package doom-themes
   :ensure t
@@ -84,13 +115,18 @@
 ;; https://github.com/emacsorphanage/helm-ag
 (use-package helm-ag
   :ensure t)
-;; Magit
 
+;; Magit
 (use-package magit
   :ensure t
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
 
+(use-package git-gutter
+  :ensure t
+  :init
+  (global-git-gutter-mode t))
+  
 ;; https://github.com/justbur/emacs-which-key
 (use-package which-key
   :ensure t
@@ -134,12 +170,9 @@
   :after treemacs projectile
   :ensure t)  
 
-;; PYHTON
-;; pyenv
-;; (use-package pyenv
-;;  :straight (:host github :repo "aiguofer/pyenv.el")
-;;  :config
-;;  (global-pyenv-mode))
+;; Pyvenv
+(use-package pyvenv)
+(pyvenv-mode)
 
 ;; elpy
 (use-package elpy
@@ -147,6 +180,20 @@
   :defer t
   :init
   (advice-add 'python-mode :before 'elpy-enable))
+
+;; eglot
+(use-package eglot :ensure t)
+(defun custom/python-occur-definitions ()
+  (interactive)
+  (let ((list-matching-lines-face nil))
+    (occur "^ *\\(async def\\|def\\|class\\) "))
+  (let ((window (get-buffer-window "*Occur*")))
+    (if window
+	(select-window window)
+      (switch-to-buffer "*Occur*"))))
+;;(define-key lsp-mode-map (kbd "C-c C-o") 'custom/python-occur-definitions)
+(define-key eglot-mode-map (kbd "C-c C-o") 'custom/python-occur-definitions)
+
 
 ;; CLOJURE
 (use-package clojure-mode
@@ -205,32 +252,13 @@
   ;;(use-package slamhound)
   )
 
-;; miscellania
-(set-language-environment "UTF-8")
 
-(set-default-coding-systems 'utf-8)
-
-(set-face-attribute 'default nil
-                    :family "Essential PragmataPro"
-                    :height 143
-                    :slant 'normal
-                    :weight 'normal
-                    :width 'normal)
-
-(global-set-key (kbd "C-\\") 'comment-or-uncomment-region) ; easy binding for commenting
-
-(when (window-system)
-  (scroll-bar-mode -1))            ;; no scroll bar
-;;(tool-bar-mode 0)                ;; no tool bar
-;;(menu-bar-mode 0)                ;; no menu bar
-(show-paren-mode 1)                ;; visualize matching parenthesees
-(global-hl-line-mode 1)            ;; highlight current line
-(global-linum-mode t)              ;; Enable line numbers globally
-;;(setq linum-format "%4d \u2591 ")  ;; and give some air
-(set-cursor-color "LightSalmon") 
+;; restclient
+(use-package restclient
+  :ensure t
+  :mode ("\\.http\\'" . restclient-mode))
 
 (eldoc-mode 1) ; enable docs in minibuffer
-;; (setq inhibit-startup-screen 1) ; no start screen
 
 ;; store all backups in a single directory 
 (setq backup-directory-alist
@@ -241,5 +269,8 @@
 ;; y or n instead of yes-or no
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; follow sym-links
+;; follow symlinks
 (setq vc-follow-symlinks t)
+
+;; projectile do not try to follow git submodules
+(setq projectile-git-submodule-command nil)
