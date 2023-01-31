@@ -11,6 +11,8 @@ eval "$(pyenv init -)"
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/dev/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#export PATH=$HOME/graalvm-ce-java11-22.2.0/bin:$PATH
+#export JAVA_HOME=$HOME/graalvm-ce-java11-22.2.0/
 
 export LD_LIBRARY_PATH=/usr/local/lib
 # Path to your oh-my-zsh installation.
