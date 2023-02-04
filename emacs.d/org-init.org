@@ -5,12 +5,45 @@
         user-mail-address "smyslov@gmail.com"
         user-github "https://github.com/senyorjou")
 #+END_SRC
-* Basics
-No backups, linenums...
+*
+Basics
 #+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
   (setq make-backup-files nil)
+  (setq auto-save-default nil)
   (setq delete-auto-save-files t)
-  (global-display-line-numbers-mode)
+
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  (menu-bar-mode 1)
+
+  ;; Set up the visible bell
+  (setq visible-bell t)
+
+  ;; ESC as a better C-g
+  ;;(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  ;; line numbers
+  (global-display-line-numbers-mode 1)
+  ;; but not everywhere
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (global-hl-line-mode 1)
+  (set-face-attribute 'show-paren-match-expression nil :background "yellow")
+
+  ;; http://www.emacswiki.org/emacs/SavePlace
+  (save-place-mode 1)
+  ;; keep track of saved places in ~/.emacs.d/places
+  (setq save-place-file (concat user-emacs-directory "places"))
+  (setq save-place-forget-unreadable-files nil)
+  ;; load custom files
+  (add-to-list 'load-path "~/.emacs.d/custom/")
 #+END_SRC
 * Font
 #+BEGIN_SRC emacs-lisp
@@ -44,7 +77,15 @@ No backups, linenums...
 #+END_SRC
 
 * UI
-vertico, savehist, marginalia, doom-modeline
+#+BEGIN_SRC emacs-lisp
+  (require 'paren)
+  (show-paren-mode 1)
+  (set-face-foreground 'show-paren-match "black")
+  (set-face-background 'show-paren-match "orange")
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+#+END_SRC
+* UX
+vertico, orderless, savehist, marginalia
 #+BEGIN_SRC emacs-lisp
   (use-package vertico
     :straight (:files (:defaults "extensions/*"))
@@ -118,7 +159,8 @@ which-key, org-bullet...
     :ensure t
     :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
-* Projectile :)
+* Projectile, prespective
+
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
@@ -126,6 +168,70 @@ which-key, org-bullet...
     (setq projectile-completion-system 'default)
     (projectile-mode +1)
     :bind (:map projectile-mode-map
-		("C-c p" . projectile-command-map)))
+                ("C-c p" . projectile-command-map)))
+
+  (use-package perspective
+    :bind
+    ("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
+    :custom
+    (persp-mode-prefix-key (kbd "C-c M-p"))  ; pick your own prefix key here
+
+    :init
+    (persp-mode)
+    (require 'persp-projectile))
+
 #+END_SRC
 
+#+RESULTS:
+: persp-list-buffers
+
+* Git
+#+BEGIN_SRC emacs-lisp
+  (use-package diff-hl
+    :defer 1
+    :config
+    (global-diff-hl-mode 1))
+
+#+END_SRC
+
+* Clojure
+#+BEGIN_SRC emacs-lisp
+  (use-package clojure-mode)
+
+  (use-package cider
+    :hook (clojure-mode . cider-mode))
+
+  (use-package clj-refactor
+    :after cider
+    :hook (clojure-mode . clj-refactor-mode))
+#+END_SRC
+* Eglot
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eglot
+    :custom
+    (eglot-confirm-server-initiated-edits nil)
+    (eglot-connect-timeout 300)
+    :config
+    (setq eglot-autoshutdown t)
+    (setq eglot-confirm-server-initiated-edits nil)
+    (setq eglot-autoreconnect t)
+    :hook ((clojure-mode . eglot-ensure))
+    :bind (("C-c l r r" . eglot-rename)
+           ("C-c l f" . eglot-find-declaration)
+           ("C-c l a" . eglot-code-actions )
+           ("C-c l g" . xref-find-definitions)))
+
+  (use-package company
+    :config (setq company-idle-delay 0.5)
+    (setq company-show-numbers t)
+    (setq company-tooltip-limit 10)
+    (setq company-minimum-prefix-length 2)
+    (setq company-tooltip-align-annotations t)
+    ;; invert the navigation direction if the the completion popup-isearch-match
+    ;; is displayed on top (happens near the bottom of windows)
+    (setq company-tooltip-flip-when-above t)
+    (global-company-mode))
+
+
+#+END_SRC
