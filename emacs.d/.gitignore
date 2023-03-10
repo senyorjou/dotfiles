@@ -1,0 +1,10 @@
+eln-cache/
+elpa/
+straight/
+tutorial/
+ido.last
+history
+places
+projectile-bookmarks.eld
+# this one is the compiled org-init.org
+org-init.el
