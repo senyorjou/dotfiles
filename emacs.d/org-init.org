@@ -220,7 +220,6 @@ which-key, org-bullet...
     :hook (clojure-mode . clj-refactor-mode))
 #+END_SRC
 * Eglot
-
 #+BEGIN_SRC emacs-lisp
     (use-package eglot
       :custom
@@ -269,4 +268,10 @@ which-key, org-bullet...
     ;; See also `corfu-excluded-modes'.
     :init
     (global-corfu-mode))
+#+END_SRC
+* Docker, yaml
+#+BEGIN_SRC emacs-lisp
+  (require 'dockerfile-mode)
+  (require 'yaml-mode)
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 #+END_SRC
