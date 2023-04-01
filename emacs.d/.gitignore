@@ -2,9 +2,11 @@ eln-cache/
 elpa/
 straight/
 tutorial/
+transient/
 ido.last
 history
 places
 projectile-bookmarks.eld
+projects
 # this one is the compiled org-init.org
 org-init.el
