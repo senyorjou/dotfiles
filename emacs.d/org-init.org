@@ -408,9 +408,33 @@ which-key, org-bullet...
     :init
     (global-corfu-mode))
 #+END_SRC
-* Docker, yaml
+* Docker, yaml, Rest
 #+BEGIN_SRC emacs-lisp
   (require 'dockerfile-mode)
   (require 'yaml-mode)
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+  (use-package restclient
+    :ensure t)
+#+END_SRC
+* Vterm
+#+BEGIN_SRC emacs-lisp
+    (use-package vterm
+      :ensure t)
+
+#+END_SRC
+* Open-ai
+#+BEGIN_SRC emacs-lisp
+  (straight-use-package
+   '(org-ai :type git :host github :repo "rksm/org-ai"
+            :local-repo "org-ai"
+            :files ("*.el" "README.md" "snippets")))
+
+  (use-package org-ai
+    :ensure t
+    :commands (org-ai-mode)
+    :custom
+    (org-ai-openai-api-token (getenv "OPEN_AI_TOKEN"))
+    :init
+    (add-hook 'org-mode-hook #'org-ai-mode))
+
 #+END_SRC
