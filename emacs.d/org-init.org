@@ -66,6 +66,14 @@
     :slant 'normal
     :weight 'normal
     :width 'condensed)
+
+;;  (set-face-attribute 'default nil
+;;    :family "Essential PragmataPro"
+;;    :height 240
+;;    :slant 'normal
+;;    :weight 'normal
+;;    :width 'condensed)
+
 #+END_SRC
 
 * Themes
@@ -87,6 +95,8 @@
     ;;(doom-themes-treemacs-config)
     ;; Corrects (and improves) org-mode's native fontification.
     (doom-themes-org-config))
+
+  (package-vc-install "https://github.com/habamax/sandcastle-theme")
 #+END_SRC
 
 * UI
@@ -416,6 +426,8 @@ which-key, org-bullet...
   (require 'yaml-mode)
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
   (use-package restclient
+    :ensure t)
+  (use-package terraform-mode
     :ensure t)
 #+END_SRC
 * OSX
