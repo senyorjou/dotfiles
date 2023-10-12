@@ -60,19 +60,19 @@
 #+END_SRC
 * Font
 #+BEGIN_SRC emacs-lisp
+   ;; (set-face-attribute 'default nil
+   ;;   :family "Hack"
+   ;;   :height 200
+   ;;   :slant 'normal
+   ;;   :weight 'normal
+   ;;   :width 'condensed)
+
   (set-face-attribute 'default nil
-    :family "Hack"
-    :height 200
+    :family "Essential PragmataPro"
+    :height 240
     :slant 'normal
     :weight 'normal
     :width 'condensed)
-
-;;  (set-face-attribute 'default nil
-;;    :family "Essential PragmataPro"
-;;    :height 240
-;;    :slant 'normal
-;;    :weight 'normal
-;;    :width 'condensed)
 
 #+END_SRC
 

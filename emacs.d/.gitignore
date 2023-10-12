@@ -8,5 +8,8 @@ history
 places
 projectile-bookmarks.eld
 projects
+projectile.cache
+tramp
+
 # this one is the compiled org-init.org
 org-init.el
