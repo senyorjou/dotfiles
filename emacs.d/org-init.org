@@ -85,7 +85,7 @@
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
           doom-themes-enable-italic t) ; if nil, italics is universally disabled
     ;;(load-theme 'doom-one t)
-    (load-theme 'doom-nord-light t)
+    (load-theme 'doom-oksolar-light t)
     ;; Enable flashing mode-line on errors
     (doom-themes-visual-bell-config)
     ;; Enable custom neotree theme (all-the-icons must be installed!)
@@ -95,8 +95,6 @@
     ;;(doom-themes-treemacs-config)
     ;; Corrects (and improves) org-mode's native fontification.
     (doom-themes-org-config))
-
-  (package-vc-install "https://github.com/habamax/sandcastle-theme")
 #+END_SRC
 
 * UI
@@ -322,7 +320,6 @@ which-key, org-bullet...
     :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 * Projectile, prespective
-
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
@@ -344,8 +341,10 @@ which-key, org-bullet...
 
   (use-package ripgrep
     :ensure t)
+
   (use-package projectile-ripgrep
     :ensure t)
+
 #+END_SRC
 
 * Git
