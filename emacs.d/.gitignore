@@ -10,6 +10,10 @@ projectile-bookmarks.eld
 projects
 projectile.cache
 tramp
+.clj-kondo/
+.lsp/
+auto-save-list/
+network-security.data
 
 # this one is the compiled org-init.org
 org-init.el

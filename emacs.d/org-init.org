@@ -137,14 +137,18 @@ vertico, orderless, savehist, marginalia
     :init
     (all-the-icons-completion-mode))
 
-  (use-package smartparens
-      :ensure t
-      :init (require 'smartparens-config)
-      :hook (clojure-mode . smartparens-strict-mode))
+  ;;(use-package smartparens
+  ;;    :ensure t
+  ;;    :init (require 'smartparens-config)
+  ;;    :hook (clojure-mode . smartparens-strict-mode))
 
   (use-package rainbow-delimiters
     :ensure t
     :hook (clojure-mode . rainbow-delimiters-mode))
+
+  (use-package lispy
+    :ensure t
+    :hook (clojure-mode . lispy-mode))
 
   (use-package aggressive-indent
     :ensure t
@@ -309,7 +313,6 @@ vertico, orderless, savehist, marginalia
 
 * Convenient packages
 which-key, org-bullet...
-
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
