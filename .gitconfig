@@ -1,6 +1,6 @@
 [user]
 	email = smyslov@gmail.com
-    name = Marc Jou
+	name = Marc Jou
 
 [core]
 	autocrlf = false
@@ -8,7 +8,7 @@
 	excludesfile = ~/.gitignore_global
 	editor = vim
 [rerere]
-    enabled = true
+	enabled = true
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
@@ -18,102 +18,97 @@
 [color "branch"]
 	current = yellow reverse
 	local = yellow bold
-    remote = green bold
-    whitespace = red reverse
+	remote = green bold
+	whitespace = red reverse
 
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold # line info
 	old = red bold # deletions
 	new = green bold # additions
-    whitespace = red reverse
+	whitespace = red reverse
 
 [color "status"]
 	added = yellow bold
 	changed = green bold
 	untracked = cyan bold
 [push]
-    default = current
+	default = current
 
 [github]
     user = senyorjou
 
 [alias]
-    # View abbreviated SHA, description, and history graph of the latest 20 commits
-    l = log --pretty=oneline -n 20 --graph --abbrev-commit
-    lg = log --oneline --graph --decorate
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	lg = log --oneline --graph --decorate
+	
+	# classics
+	co = checkout
+	cm = commit
+	ca = commit --amend
 
-    # classics
-    co = checkout
-    cm = commit
-    ca = commit --amend
+	# View the current working tree status using the short format
+	s = status -s
+	st = status
 
-    # View the current working tree status using the short format
-    s = status -s
-    st = status
+	# Show the diff between the latest commit and the current state
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-    # Show the diff between the latest commit and the current state
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
+	#di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
-    # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-    #di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+	# Pull in remote changes for the current repository and all its submodules
+	p = !"git pull; git submodule foreach git pull origin master"
 
-    # Pull in remote changes for the current repository and all its submodules
-    p = !"git pull; git submodule foreach git pull origin master"
+	# Checkout a pull request from origin (of a github repository)
+	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 
-    # Checkout a pull request from origin (of a github repository)
-    pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
+	# Switch to a branch, creating it if necessary
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
-    # Clone a repository including all submodules
-    c = clone --recursive
+	# Color graph log view
+	graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
 
-    # Commit all changes
-    #ca = !git add -A && git commit -av
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
 
-    # Switch to a branch, creating it if necessary
-    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+	# Amend the currently staged files to the latest commit
+	amend = commit --amend --reuse-message=HEAD
 
-    # Color graph log view
-    graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+	# Credit an author on the latest commit
+	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
-    # Show verbose output about tags, branches or remotes
-    tags = tag -l
-    branches = branch -a
-    remotes = remote -v
+	# Interactive rebase with the given number of latest commits
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
 
-    # Amend the currently staged files to the latest commit
-    amend = commit --amend --reuse-message=HEAD
+	# Find branches containing commit
+	fb = "!f() { git branch -a --contains $1; }; f"
 
-    # Credit an author on the latest commit
-    credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+	# Find tags containing commit
+	ft = "!f() { git describe --always --contains $1; }; f"
 
-    # Interactive rebase with the given number of latest commits
-    reb = "!r() { git rebase -i HEAD~$1; }; r"
+	# Find commits by source code
+	fc = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
 
-    # Find branches containing commit
-    fb = "!f() { git branch -a --contains $1; }; f"
+	# Find commits by commit message
+	fm = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
-    # Find tags containing commit
-    ft = "!f() { git describe --always --contains $1; }; f"
+	# Remove branches that have already been merged with master
+	# a.k.a. ‘delete merged’
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d; git remote -v update -p"
 
-    # Find commits by source code
-    fc = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+	# List contributors with number of commits
+	contributors = shortlog --summary --numbered
 
-    # Find commits by commit message
-    fm = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+	lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
 
-    # Remove branches that have already been merged with master
-    # a.k.a. ‘delete merged’
-    dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d; git remote -v update -p"
+	mdiff = "!f() { git stash | head -1 | grep -q 'No local changes to save'; x=$?; git merge --no-commit $1 &>/dev/null; git add -u &>/dev/null; git diff --staged; git reset --hard &>/dev/null; test $x -ne 0 && git stash pop &>/dev/null; }; f"
 
-    # List contributors with number of commits
-    contributors = shortlog --summary --numbered
+	wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
-    lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
-
-    mdiff = "!f() { git stash | head -1 | grep -q 'No local changes to save'; x=$?; git merge --no-commit $1 &>/dev/null; git add -u &>/dev/null; git diff --staged; git reset --hard &>/dev/null; test $x -ne 0 && git stash pop &>/dev/null; }; f"
-
-    wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
