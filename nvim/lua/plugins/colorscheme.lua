@@ -5,4 +5,10 @@ return {
   opts = {
     flavour = "latte",
   },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin-frappe",
+    },
+  },
 }
